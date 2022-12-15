@@ -23,7 +23,6 @@ def LongestContourIndex(data):
   l = 0
   for i, d in enumerate(data):
     if l < len(d):
-      print(len(d))
       l = len(d)
       index = i
   return index
@@ -40,7 +39,12 @@ def GetBestTenData(data):
       hash_map[len(d)] = [i]
   
   # 키 정렬
+  print("##############################################")
+  print()
+  print("최고의 데이터 10개 선정")
   keys = sorted(hash_map.keys(), reverse=True)
+  print(hash_map)
+  print(keys)
   
   # index 조회 완료
   count = 0
@@ -89,10 +93,13 @@ def EllipseEq3(long, short, angle, center_x, center_y, x, y):
   p2 = (long**2) * (short**2)
   return p1 / p2
   
-
+import sys
+import os
+print(sys.path)
+# sys.path.append(os.path.join(sys.path[0], ""))
 
 def EllipseTest():
-  img = cv2.imread("./data/clean_gauge1.jpg", cv2.IMREAD_COLOR)
+  img = cv2.imread("clean_gauge1.jpg", cv2.IMREAD_COLOR)
   img_copy = img.copy()
   gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
   
@@ -148,6 +155,9 @@ def EllipseTest():
   for i in indexes:
     elps = cv2.fitEllipse(cnts[i])  
     # Skew
+    print("################## ")
+    print("타원 추정")
+    print(elps)
     if (abs(elps[1][0] - elps[1][1]) / (elps[1][0] + elps[1][1])) > 0.4:
       continue
     
@@ -270,23 +280,3 @@ def PointConvexHull():
 if __name__=="__main__":
   # methods1()
   EllipseTest()
-  # def EllipseEq2(long, short, angle, center_x, center_y, x, y):
-  #   a = np.deg2rad(angle)
-  #   x = x - center_x
-  #   y = y - center_y
-  #   p1 = ((long**2) * (math.sin(a) ** 2) + (short**2) * (math.cos(a) ** 2) * (x ** 2)) + 2 * (short ** 2 - long ** 2)* math.sin(a) * math.cos(a) * x * y + ((long ** 2) * (math.cos(a) ** 2) + (short**2) * (math.sin(a) ** 2)) * (y**2)
-  #   p2 = (long**2) * (short**2)
-  #   # print(p1, p2)
-  #   return p1 >= p2
-  
-  
-  
-  # new_img = np.zeros((600, 600))
-  # for index_h in range(600):
-  #   for index_w in range(600):
-  #     # if EllipseEq2(130, 193, 95, 264, 232, index_h, index_w) <= 1:
-  #     #   pass
-  #     if EllipseEq2(130, 200, 180, 300, 300, index_h, index_w):
-  #       new_img[index_h][index_w] = 255
-  # cv2.imshow("go", new_img)
-  # cv2.waitKey()
